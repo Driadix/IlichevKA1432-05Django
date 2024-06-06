@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Новости</h1>
+<div class="news-search-filter">
+    <form method="get" action="{% url 'news_list' %}" class="search-form">
+        <input class="search_input" type="text" name="query" placeholder="Поиск новостей..." value="{{ request.GET.query }}">
+        <button type="submit">Поиск</button>
+    </form>
+    <form method="get" action="{% url 'news_list' %}" class="sort-form">
+        <input type="hidden" name="order" value="{% if request.GET.order == 'asc' %}desc{% else %}asc{% endif %}">
+        <button type="submit">
+            {% if request.GET.order == 'asc' %}
+                Сортировать по дате УБЫВ
+            {% else %}
+                Сортировать по дате ВОЗР
+            {% endif %}
+        </button>
+    </form>
+    {% if user.is_staff %}
+        <a style="display: block; text-align: center; text-decoration: none; padding: 5px; border: 1px solid black; margin-top: 5px;" href="{% url 'add_news' %}" class="btn btn-primary">Создать новость</a>
+    {% endif %}
+</div>
+
+<div class="news-container">
+    {% for news in news_list %}
+        <div class="news-item">
+            <h2><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h2>
+            {% if news.image %}
+                <img src="{{ news.image.url }}" alt="{{ news.title }}">
+            {% endif %}
+            <p>{{ news.published_date }}</p>
+            {% if user.is_staff %}
+                <a href="{% url 'edit_news' news.id %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'delete_news' news.id %}" class="btn btn-danger">Удалить</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

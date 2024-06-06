@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Редактировать новость{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Редактировать новость</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+</form>
+{% endblock %}

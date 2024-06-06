@@ -1,0 +1,15 @@
+<!-- main/templates/main/home.html -->
+{% extends 'main/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="home_title">Tech Innovators</h1>
+<p class="home_text">Tech Innovators - ведущая компания в области разработки инновационных технологий и программного обеспечения. Мы создаем передовые решения для бизнеса и частных клиентов, помогая им достигать новых высот в их деятельности.</p>
+
+<h2 class="news_block">Последние новости</h2>
+{% load news_tags %}
+{% for news in latest_news %}
+    {% render_news news %}
+{% endfor %}
+{% endblock %}

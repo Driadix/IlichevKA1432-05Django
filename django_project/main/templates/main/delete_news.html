@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Удалить новость{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center">Удалить новость</h1>
+<p style="text-align: center">Вы уверены, что хотите удалить новость "{{ news.title }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a style="display: block; text-align: center; text-decoration: none; padding: 5px; border: 1px solid red; margin-top: 5px;" href="{% url 'news_detail' news.id %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!-- main/templates/main/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tech Innovators{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+        <nav class="navbar">
+            <ul class="navbar-menu">
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'news_list' %}">Список новостей</a></li>
+                    <li><a href="{% url 'profile' %}">Профиль</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="/admin/">Режим администратора</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Выйти</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Войти</a></li>
+                    <li><a href="{% url 'register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2024 Tech Innovators</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Профиль</h1>
+    <h2>Информация об аккаунте</h2>
+    <p><strong>Имя пользователя:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+
+    <h2>Смена пароля</h2>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ password_form.as_p }}
+            <button type="submit">Сменить пароль</button>
+        </form>
+    </div>
+
+    <h2>Ваши комментарии</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.text }} (к {{ comment.news.title }} на {{ comment.created_date }})</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

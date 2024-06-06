@@ -1,0 +1,11 @@
+<!-- main/templates/main/news_item.html -->
+<div class="news-item">
+    <h3><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h3>
+    {% if news.image %}
+        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+    {% endif %}
+    <p class="news_footnote">Опубликовано: {{ news.published_date }} Автор: {{ news.author.username }}</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'news_detail' news.id %}">Прочитать больше</a>
+    {% endif %}
+</div>
